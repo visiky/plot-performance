@@ -5,6 +5,7 @@ import {
   Plot,
   G2,
 } from "@antv/g2plot";
+import { X_FIELD, Y_FIELD, SERIES_FIELD } from "../constant";
 import { sleep } from "../utils";
 
 
@@ -17,7 +18,7 @@ const Ctor: Record<
   scatter: ScatterG2plot,
 };
 
-export const create = (container: HTMLElement | HTMLDivElement) => {
+export const createG2Plot = (container: HTMLElement | HTMLDivElement) => {
   let plot: Plot<any> | undefined;
 
   const destroy = () => {
@@ -33,16 +34,22 @@ export const create = (container: HTMLElement | HTMLDivElement) => {
       const startTime = performance.now();
       plot = new Ctor[chartType](container, {
         data,
-        xField: "x",
-        yField: "y",
-        seriesField: "type",
+        xField: X_FIELD,
+        yField: Y_FIELD,
+        seriesField: SERIES_FIELD,
+        colorField: SERIES_FIELD,
+        legend: false,
+        // for linePlot
+        lineStyle: { lineWidth: 1 },
+        // for scatterPlot
+        size: 2,
         ...(options || {}),
       });
       plot.render();
 
       const endTime = performance.now();
 
-      await sleep(10);
+      await sleep(0);
 
       return endTime - startTime;
     },

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Select } from "antd";
+import { Select, Checkbox } from "antd";
 import { DATA_POINTS_OPTIONS } from "../common/data";
 import { generateData } from "../common/run";
 import { CASES } from "../common/cases";
@@ -14,14 +14,15 @@ export const AssocationCase = () => {
   const testcase3 = React.useRef<any>(null);
   const date = React.useRef<Date>(new Date(0));
 
-  const [DataPoints, updateDataPoints] = useState(2000);
+  const [DataPoints, updateDataPoints] = useState(3600);
   const [chartType, updateChartType] = useState("line");
   const [renderTime, updateRenderTime] = useState<number[]>([]);
+  const [markerPointsFlag, toggleMarkerPointsFlag] = useState<boolean>(false);
 
   React.useEffect(() => {
-    testcase1.current = CASES.get("g2plot")(ref1.current!);
-    testcase2.current = CASES.get("g2plot")(ref2.current!);
-    testcase3.current = CASES.get("g2plot")(ref3.current!);
+    testcase1.current = CASES.get("G2Plot")(ref1.current!);
+    testcase2.current = CASES.get("G2Plot")(ref2.current!);
+    testcase3.current = CASES.get("G2Plot")(ref3.current!);
 
     // 销毁
     return () => {
@@ -39,24 +40,25 @@ export const AssocationCase = () => {
   async function render() {
     const testcases = [testcase1, testcase2, testcase3];
 
-    Promise.all(testcases.map(async (testcase) => {
-      const p = testcase.current;
+    Promise.all(
+      testcases.map(async (testcase) => {
+        const p = testcase.current;
 
-      const time = await p.render(data, chartType, {
-        slider: {
-          trendCfg: {
-            data: data.filter((d) => d.type === "FPS").map((d) => d.y),
+        const time = await p.render(data, chartType, {
+          slider: {
+            trendCfg: {
+              data: data.filter((d) => d.type === "FPS").map((d) => d.y),
+            },
           },
-        },
-        // for linePlot
-        lineStyle: { lineWidth: 1 },
-        point: { size: 2, style: { lineWidth: 0 } },
-        // for scatterPlot
-        size: 2,
-      });
+          // for linePlot
+          point: markerPointsFlag
+            ? { size: 2, style: { lineWidth: 0 } }
+            : false,
+        });
 
-      return Promise.resolve(time);
-    })).then(values => {
+        return Promise.resolve(time);
+      })
+    ).then((values) => {
       updateRenderTime(values);
     });
 
@@ -85,6 +87,10 @@ export const AssocationCase = () => {
     render();
   }, [chartType, data]);
 
+  React.useEffect(() => {
+    render();
+  }, [markerPointsFlag]);
+
   return (
     <div className="container">
       <div>
@@ -112,7 +118,9 @@ export const AssocationCase = () => {
             onChange={(e: any) => updateDataPoints(e)}
           />
           <div className="description">
-            <div className="flex">Rendering {DataPoints} Data Points (x points)</div>
+            <div className="flex">
+              Rendering {DataPoints} Data Points (x points)
+            </div>
             {renderTime.map((time, idx) => {
               return (
                 <div className="flex" key={idx}>
@@ -124,6 +132,9 @@ export const AssocationCase = () => {
               );
             })}
           </div>
+          <Checkbox onChange={(e) => toggleMarkerPointsFlag(e.target.checked)}>
+            展示标注点
+          </Checkbox>
         </div>
       </div>
     </div>

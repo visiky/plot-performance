@@ -9,9 +9,13 @@ import { generateData } from "../common/run";
 import { CASES } from "../common/cases";
 import "./index.less";
 
+const ENGINES = ["G2Plot", "G2Plot", "ECharts"];
+
 export const BasicCase = () => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-  const testcase = React.useRef<any>(null);
+  const ref1 = React.useRef<HTMLDivElement | null>(null);
+  const ref2 = React.useRef<HTMLDivElement | null>(null);
+  const ref3 = React.useRef<HTMLDivElement | null>(null);
+  const testcases = React.useRef<any>([]);
   const interval = React.useRef<any>();
   const date = React.useRef<Date>(new Date(0));
 
@@ -20,8 +24,8 @@ export const BasicCase = () => {
   const [chartType, updateChartType] = useState("line");
   const [streamingPoints, updateStreamingPoints] = useState(100);
   const [streamingInterval, updateStreamingInterval] = useState(20);
-  const [renderTime, updateRenderTime] = useState(0);
-  const [streamingRenderTime, updateStreamingRenderTime] = useState(0);
+  const [renderTimes, updateRenderTimes] = useState<number[]>([]);
+  const [streamingTimes, updateStreamingTimes] = useState<number[]>([]);
 
   const data = React.useMemo(() => {
     date.current = new Date(0);
@@ -29,25 +33,31 @@ export const BasicCase = () => {
   }, [DataPoints]);
 
   React.useEffect(() => {
-    testcase.current = CASES.get("g2plot")(ref.current!);
+    const containers = [ref1.current!, ref2.current!, ref3.current!];
+    const cases = ENGINES.map((E, idx) => {
+      return CASES.get(E)(containers[idx]);
+    });
+    testcases.current = cases;
 
     // 销毁
-    return () => testcase.current?.destroy();
+    return () => cases.forEach((c) => c.destroy());
   }, []);
 
   const render = async () => {
-    const p = testcase.current;
-
-    const time = await p.render(data, chartType, {
-      // for linePlot
-      lineStyle: { lineWidth: 1 },
-      point: { size: 2, style: { lineWidth: 0 } },
-      // for scatterPlot
-      size: 2,
+    Promise.all(
+      testcases.current.map(async (p: any, idx: number) => {
+        const time = await p.render(
+          data,
+          chartType,
+          idx === 1 && { point: { size: 2, style: { lineWidth: 0 } } }
+        );
+        return time;
+      })
+    ).then((values: number[]) => {
+      updateRenderTimes(values);
+      // 置空
+      updateStreamingTimes([]);
     });
-    updateRenderTime(time);
-    // 置空
-    updateStreamingRenderTime(0);
   };
 
   React.useEffect(() => {
@@ -55,26 +65,32 @@ export const BasicCase = () => {
   }, [chartType, data]);
 
   const startStreaming = () => {
-    const p = testcase.current;
-
     let count = 0;
-    let total = 0;
+    let total: number[] = [0, 0, 0];
     let start = DataPoints;
     interval.current = setInterval(async () => {
-      const newData = p
-        .getData()
-        .slice(streamingPoints)
-        .concat(
-          generateData(
-            date.current,
-            (start += 1),
-            (start += streamingPoints)
-          )
-        );
+      Promise.all(
+        testcases.current.map((p: any) => {
+          const newData = p
+            .getData()
+            .slice(streamingPoints)
+            .concat(
+              generateData(
+                date.current,
+                (start += 1),
+                (start += streamingPoints)
+              )
+            );
 
-      const time = await p.changeData(newData);
-
-      updateStreamingRenderTime(Math.floor((total += time) / (++count)));
+          return p.changeData(newData);
+        })
+      ).then((values) => {
+        count++;
+        const times = values.map((time, idx) => {
+          return Math.floor((total[idx] += time) / count);
+        });
+        updateStreamingTimes(times);
+      });
     }, streamingInterval);
   };
 
@@ -102,7 +118,14 @@ export const BasicCase = () => {
 
   return (
     <div className="container">
-      <div ref={ref} style={{ height: "400px" }} />
+      <div>
+        <div className="title">{ENGINES[0]}</div>
+        <div ref={ref1} style={{ height: "220px" }} />
+        <div className="title">{ENGINES[1]} with markerPoints</div>
+        <div ref={ref2} style={{ height: "220px" }} />
+        <div className="title">{ENGINES[2]}</div>
+        <div ref={ref3} style={{ height: "220px" }} />
+      </div>
       <div>
         <div>
           <div className="name">Chart Settings</div>
@@ -123,13 +146,19 @@ export const BasicCase = () => {
             onChange={(e: any) => updateDataPoints(e)}
           />
           <div className="description">
-            <div className="flex">Rendering {DataPoints} Data Points (x points)</div>
             <div className="flex">
-              Chart rendering:
-              <span style={{ color: "#873bf4" }}>
-                {renderTime ? Math.floor(renderTime) : "-"} ms
-              </span>
+              Rendering {DataPoints} Data Points (x points)
             </div>
+            {ENGINES.map((E, idx) => {
+              return (
+                <div className="flex" key={idx}>
+                  {E} rendering:
+                  <span style={{ color: "#873bf4" }}>
+                    {renderTimes[idx] ? Math.floor(renderTimes[idx]) : "-"} ms
+                  </span>
+                </div>
+              );
+            })}
           </div>
           <Button
             type="primary"
@@ -172,12 +201,19 @@ export const BasicCase = () => {
                 }
               </span>
             </div>
-            <div className="flex">
-              Average rendering time:
-              <span style={{ color: "#873bf4" }}>
-                {streamingRenderTime ? Math.floor(streamingRenderTime) : "-"} ms
-              </span>
-            </div>
+            {ENGINES.map((E, idx) => {
+              return (
+                <div className="flex" key={idx}>
+                  {E} Average rendering time:
+                  <span style={{ color: "#873bf4" }}>
+                    {streamingTimes[idx]
+                      ? Math.floor(streamingTimes[idx])
+                      : "-"}
+                    ms
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
