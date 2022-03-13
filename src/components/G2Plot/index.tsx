@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Select, Checkbox } from "antd";
-import { DATA_POINTS_OPTIONS } from "../common/data";
-import { generateData } from "../common/run";
-import { CASES } from "../common/cases";
-import "./index.less";
+import { DATA_POINTS_OPTIONS } from "../../common/data";
+import { generateData } from "../../common/data";
+import { CASES } from "../../common/cases";
+import "../index.less";
 
-export const AssocationCase = () => {
+/**
+ * 专门为 G2Plot 定制的 case
+ */
+export const G2PlotCase = () => {
   const ref1 = React.useRef<HTMLDivElement | null>(null);
   const ref2 = React.useRef<HTMLDivElement | null>(null);
   const ref3 = React.useRef<HTMLDivElement | null>(null);

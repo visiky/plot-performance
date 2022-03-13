@@ -2,20 +2,21 @@ import {
   Line as LineG2plot,
   Column as ColumnG2plot,
   Scatter as ScatterG2plot,
+  Area, Bar,
   Plot,
+  Options,
   G2,
 } from "@antv/g2plot";
 import { X_FIELD, Y_FIELD, SERIES_FIELD } from "../constant";
 import { sleep } from "../utils";
 
 
-const Ctor: Record<
-  string,
-  typeof LineG2plot | typeof ColumnG2plot | typeof ScatterG2plot
-> = {
+const Ctor: Record<string, any> = {
   line: LineG2plot,
   column: ColumnG2plot,
   scatter: ScatterG2plot,
+  area: Area,
+  bar: Bar,
 };
 
 export const createG2Plot = (container: HTMLElement | HTMLDivElement) => {
@@ -44,7 +45,7 @@ export const createG2Plot = (container: HTMLElement | HTMLDivElement) => {
         // for scatterPlot
         size: 2,
         ...(options || {}),
-      });
+      }) as Plot<Options>;
       plot.render();
 
       const endTime = performance.now();

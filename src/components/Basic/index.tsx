@@ -4,10 +4,10 @@ import {
   DATA_POINTS_OPTIONS,
   STRAMING_POINTS_OPTIONS,
   STRAMING_INTERVAL_OPTIONS,
-} from "../common/data";
-import { generateData } from "../common/run";
-import { CASES } from "../common/cases";
-import "./index.less";
+} from "../../common/data";
+import { generateData } from "../../common/data";
+import { CASES } from "../../common/cases";
+import "../index.less";
 
 const ENGINES = ["G2Plot", "G2Plot", "ECharts"];
 

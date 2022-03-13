@@ -1,7 +1,7 @@
 import * as echarts from 'echarts';
 import _ from 'lodash';
 import { SERIES_FIELD, X_FIELD, Y_FIELD } from '../constant';
-import { MEASURES } from '../run';
+import { MEASURES } from '../data';
 import { sleep } from "../utils";
 
 const CHART_MAP: Record<string, string> = {
