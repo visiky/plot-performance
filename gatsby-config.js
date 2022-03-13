@@ -1,9 +1,11 @@
 /** @type {import('gatsby').GatsbyConfig} */
 module.exports = {
   siteMetadata: {
-    title: ``,
-    siteUrl: `https://www.yourdomain.tld`,
+    author: 'visiky',
+    title: `❤️ Plot performance test`,
+    siteUrl: `https://visiky.github.io/plot-performance/`,
   },
+  pathPrefix: '/plot-performance',
   plugins: [
     "gatsby-plugin-styled-components",
     {
