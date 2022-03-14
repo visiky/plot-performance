@@ -24,6 +24,4 @@
 
 ## 🚀 Quick start (Gatsby Cloud)
 
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal-ts)
+Deploy on [Gatsby Cloud](https://www.gatsbyjs.com/dashboard/aa2fa3af-192a-4541-bf77-3ffec33c8fb8/sites/720ba05d-4e5b-4235-ad68-1101d7f950eb/deploys):
