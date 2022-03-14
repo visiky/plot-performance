@@ -128,7 +128,7 @@ export const G2PlotCase = () => {
               return (
                 <div className="flex" key={idx}>
                   Plot{idx} rendering:
-                  <span style={{ color: "#873bf4" }}>
+                  <span style={{ color: "rgb(39, 63, 117)" }}>
                     {Math.floor(time || 0) ?? "-"} ms
                   </span>
                 </div>

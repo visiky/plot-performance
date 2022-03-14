@@ -21,7 +21,7 @@ module.exports = {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            "primary-color": "#873bf4",
+            "primary-color": "rgb(39, 63, 117)",
             "font-family": "Arial",
           },
         },
@@ -35,13 +35,5 @@ module.exports = {
     },
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-remark",
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "pages",
-        path: "./src/pages/",
-      },
-      __key: "pages",
-    },
   ],
 };

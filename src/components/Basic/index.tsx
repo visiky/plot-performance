@@ -153,7 +153,7 @@ export const BasicCase = () => {
               return (
                 <div className="flex" key={idx}>
                   {E} rendering:
-                  <span style={{ color: "#873bf4" }}>
+                  <span style={{ color: "rgb(39, 63, 117)" }}>
                     {renderTimes[idx] ? Math.floor(renderTimes[idx]) : "-"} ms
                   </span>
                 </div>
@@ -205,7 +205,7 @@ export const BasicCase = () => {
               return (
                 <div className="flex" key={idx}>
                   {E} Average rendering time:
-                  <span style={{ color: "#873bf4" }}>
+                  <span style={{ color: "rgb(39, 63, 117)" }}>
                     {streamingTimes[idx]
                       ? Math.floor(streamingTimes[idx])
                       : "-"}
