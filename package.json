@@ -15,7 +15,14 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@antv/g2plot": "^2.4.9",
@@ -41,6 +48,9 @@
     "gatsby-plugin-styled-components": "^5.9.0",
     "gatsby-source-filesystem": "^4.9.1",
     "gatsby-transformer-remark": "^5.9.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.5",
+    "prettier": "^2.5.1",
     "typescript": "^4.6.2"
   }
 }
