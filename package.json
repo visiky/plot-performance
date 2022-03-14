@@ -15,6 +15,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,md}\"",
     "typecheck": "tsc --noEmit",
     "prepare": "husky install",
     "lint-staged": "lint-staged"

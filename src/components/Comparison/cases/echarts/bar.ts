@@ -1,7 +1,15 @@
-import _ from 'lodash';
-import * as echarts from 'echarts';
-import { Data } from '../../types';
-import { X_FIELD, Y_FIELD, size, sleep, block, S_FIELD, SERIES } from '../../helper';
+import _ from "lodash";
+import * as echarts from "echarts";
+import { Data } from "../../types";
+import {
+  X_FIELD,
+  Y_FIELD,
+  size,
+  sleep,
+  block,
+  S_FIELD,
+  SERIES,
+} from "../../helper";
 
 /**
  * @param container
@@ -22,15 +30,17 @@ export async function Bar(container: HTMLElement, data: Data): Promise<number> {
       data: _.uniq(_.map(data, (item) => item[X_FIELD])),
     },
     yAxis: {},
-    series: SERIES.map(S => {
+    series: SERIES.map((S) => {
       return {
-        data: _.filter(data, (d: any) => d[S_FIELD] === S).map((item) => item[Y_FIELD]),
+        data: _.filter(data, (d: any) => d[S_FIELD] === S).map(
+          (item) => item[Y_FIELD]
+        ),
         areaStyle: {},
-        type: 'bar',
+        type: "bar",
       };
     }),
     tooltip: {
-      trigger: 'axis',
+      trigger: "axis",
     },
   };
 

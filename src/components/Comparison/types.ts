@@ -11,7 +11,7 @@ export type PerfDatum = {
   readonly time: number;
 };
 
-export type ChartType = 'Line' | 'Area' | 'Bar' | 'Scatter';
+export type ChartType = "Line" | "Area" | "Bar" | "Scatter";
 
 export type PerfData = Partial<Record<ChartType, PerfDatum[]>>;
 
@@ -20,12 +20,16 @@ export type PerfData = Partial<Record<ChartType, PerfDatum[]>>;
  */
 export type PerfCase = (container: HTMLElement, data: Data) => Promise<number>;
 
-export interface ChangeOption extends Omit<PerfDatum, 'time'> {
+export interface ChangeOption extends Omit<PerfDatum, "time"> {
   readonly amount: number;
   readonly count: number;
   readonly total: number;
 }
 
-export type OneDataType = { label: string; value: 'start' | 'end' | 'step'; num: number };
+export type OneDataType = {
+  label: string;
+  value: "start" | "end" | "step";
+  num: number;
+};
 
 export type DataAttributeType = OneDataType[];

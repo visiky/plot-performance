@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './index.less';
+import "./index.less";
 
 export function Footer() {
   return (

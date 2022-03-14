@@ -1,9 +1,9 @@
-import React from 'react';
-import _ from 'lodash';
-import { Form, Button, Checkbox, Row, InputNumber } from 'antd';
-import { ENGINES, CHART_TYPES } from '../constant';
-import { ChartType, DataAttributeType, OneDataType } from '../types';
-import { SERIES } from '../helper';
+import React from "react";
+import _ from "lodash";
+import { Form, Button, Checkbox, Row, InputNumber } from "antd";
+import { ENGINES, CHART_TYPES } from "../constant";
+import { ChartType, DataAttributeType, OneDataType } from "../types";
+import { SERIES } from "../helper";
 
 export type IConfig = {
   engines: string[];
@@ -21,7 +21,14 @@ type Props = {
 };
 
 export function Config(props: Props) {
-  const { loading, engines, types, onChange, onInputNumberChange, inputNumberData } = props;
+  const {
+    loading,
+    engines,
+    types,
+    onChange,
+    onInputNumberChange,
+    inputNumberData,
+  } = props;
 
   function onOk() {
     props.onOk();
@@ -52,14 +59,22 @@ export function Config(props: Props) {
         <Form.Item name="engines" label="Chart Engines">
           <Checkbox.Group>
             <Row>
-              <Checkbox.Group options={ENGINES} value={engines} onChange={onEnginesChange} />
+              <Checkbox.Group
+                options={ENGINES}
+                value={engines}
+                onChange={onEnginesChange}
+              />
             </Row>
           </Checkbox.Group>
         </Form.Item>
         <Form.Item name="chartList" label="Chart Types">
           <Checkbox.Group>
             <Row>
-              <Checkbox.Group options={CHART_TYPES} value={types} onChange={onTypesChange} />
+              <Checkbox.Group
+                options={CHART_TYPES}
+                value={types}
+                onChange={onTypesChange}
+              />
             </Row>
           </Checkbox.Group>
         </Form.Item>
@@ -71,7 +86,9 @@ export function Config(props: Props) {
                 size="small"
                 {...allInputNumberStyle}
                 value={item.num}
-                onChange={(value) => onInputNumberChange({ ...item, num: value as number }, index)}
+                onChange={(value) =>
+                  onInputNumberChange({ ...item, num: value as number }, index)
+                }
               />
             </Form.Item>
           ))}

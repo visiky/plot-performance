@@ -1,12 +1,15 @@
-import { Chart } from '@antv/g2';
-import { Data } from '../../types';
-import { Z_FIELD, Y_FIELD, size, sleep, block, S_FIELD } from '../../helper';
+import { Chart } from "@antv/g2";
+import { Data } from "../../types";
+import { Z_FIELD, Y_FIELD, size, sleep, block, S_FIELD } from "../../helper";
 
 /**
  * @param container
  * @param data
  */
-export async function Scatter(container: HTMLElement, data: Data): Promise<number> {
+export async function Scatter(
+  container: HTMLElement,
+  data: Data
+): Promise<number> {
   const startTime = performance.now();
 
   const chart = new Chart({

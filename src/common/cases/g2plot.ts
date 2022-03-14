@@ -2,14 +2,14 @@ import {
   Line as LineG2plot,
   Column as ColumnG2plot,
   Scatter as ScatterG2plot,
-  Area, Bar,
+  Area,
+  Bar,
   Plot,
   Options,
   G2,
 } from "@antv/g2plot";
 import { X_FIELD, Y_FIELD, SERIES_FIELD } from "../constant";
 import { sleep } from "../utils";
-
 
 const Ctor: Record<string, any> = {
   line: LineG2plot,
@@ -29,7 +29,11 @@ export const createG2Plot = (container: HTMLElement | HTMLDivElement) => {
   };
 
   return {
-    render: async (data: G2.Types.Data, chartType = "line", options?: object): Promise<number> => {
+    render: async (
+      data: G2.Types.Data,
+      chartType = "line",
+      options?: object
+    ): Promise<number> => {
       if (plot) destroy();
 
       const startTime = performance.now();

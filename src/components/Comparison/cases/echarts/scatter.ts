@@ -1,13 +1,24 @@
-import _ from 'lodash';
-import * as echarts from 'echarts';
-import { Data } from '../../types';
-import { Z_FIELD, Y_FIELD, size, sleep, block, SERIES, S_FIELD } from '../../helper';
+import _ from "lodash";
+import * as echarts from "echarts";
+import { Data } from "../../types";
+import {
+  Z_FIELD,
+  Y_FIELD,
+  size,
+  sleep,
+  block,
+  SERIES,
+  S_FIELD,
+} from "../../helper";
 
 /**
  * @param container
  * @param data
  */
-export async function Scatter(container: HTMLElement, data: Data): Promise<number> {
+export async function Scatter(
+  container: HTMLElement,
+  data: Data
+): Promise<number> {
   const startTime = performance.now();
 
   const myChart = echarts.init(container, undefined, size);
@@ -20,14 +31,17 @@ export async function Scatter(container: HTMLElement, data: Data): Promise<numbe
     },
     xAxis: {},
     yAxis: {},
-    series: SERIES.map(S => {
+    series: SERIES.map((S) => {
       return {
-        data: _.filter(data, (d: any) => d[S_FIELD] === S).map((item) => [item[Z_FIELD], item[Y_FIELD]]),
-        type: 'scatter',
+        data: _.filter(data, (d: any) => d[S_FIELD] === S).map((item) => [
+          item[Z_FIELD],
+          item[Y_FIELD],
+        ]),
+        type: "scatter",
       };
     }),
     tooltip: {
-      trigger: 'axis',
+      trigger: "axis",
     },
   };
 

@@ -1,6 +1,6 @@
-import { Chart } from '@antv/g2';
-import { Data } from '../../types';
-import { X_FIELD, Y_FIELD, size, sleep, block, S_FIELD } from '../../helper';
+import { Chart } from "@antv/g2";
+import { Data } from "../../types";
+import { X_FIELD, Y_FIELD, size, sleep, block, S_FIELD } from "../../helper";
 
 /**
  * @param container

@@ -1,13 +1,13 @@
-import * as echarts from 'echarts';
-import _ from 'lodash';
-import { SERIES_FIELD, X_FIELD, Y_FIELD } from '../constant';
-import { MEASURES } from '../data';
+import * as echarts from "echarts";
+import _ from "lodash";
+import { SERIES_FIELD, X_FIELD, Y_FIELD } from "../constant";
+import { MEASURES } from "../data";
 import { sleep } from "../utils";
 
 const CHART_MAP: Record<string, string> = {
-  line: 'line',
-  column: 'bar',
-  scatter: 'scatter',
+  line: "line",
+  column: "bar",
+  scatter: "scatter",
 };
 
 export const createECharts = (container: HTMLElement | HTMLDivElement) => {
@@ -21,7 +21,11 @@ export const createECharts = (container: HTMLElement | HTMLDivElement) => {
     plot = undefined;
   };
 
-  const render = async (data: any[], chartType = "line", options?: object): Promise<number> => {
+  const render = async (
+    data: any[],
+    chartType = "line",
+    options?: object
+  ): Promise<number> => {
     if (plot) destroy();
     chartData = data;
     type = chartType;
@@ -40,8 +44,10 @@ export const createECharts = (container: HTMLElement | HTMLDivElement) => {
         data: _.uniq(_.map(data, (item) => item[X_FIELD])),
       },
       yAxis: {},
-      series: MEASURES.map(m => ({
-        data: _.filter(data, item => item[SERIES_FIELD] === m).map((item) => item[Y_FIELD]),
+      series: MEASURES.map((m) => ({
+        data: _.filter(data, (item) => item[SERIES_FIELD] === m).map(
+          (item) => item[Y_FIELD]
+        ),
         type: CHART_MAP[chartType],
         // for line
         lineStyle: { width: 1 },
@@ -49,7 +55,7 @@ export const createECharts = (container: HTMLElement | HTMLDivElement) => {
         symbolSize: 3,
       })),
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
       },
       ...(options || {}),
     };
@@ -61,7 +67,7 @@ export const createECharts = (container: HTMLElement | HTMLDivElement) => {
     await sleep(0);
 
     return endTime - startTime;
-  }
+  };
 
   return {
     render,

@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
-import { M } from 'miz'; // ES6
+import * as _ from "lodash";
+import { M } from "miz"; // ES6
 
 export const sleepThisObj = {
   paused: false,
@@ -9,7 +9,7 @@ export const sleepThisObj = {
  * 创建一个 div 节点
  */
 export const createDIV = (parent: HTMLElement): HTMLElement => {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
 
   parent.appendChild(div);
 
@@ -37,11 +37,11 @@ export const getSeq = (start = 200, end = 10000, step = 200): number[] => {
   return r;
 };
 
-export const SERIES = ['type1', 'type2'];
-export const X_FIELD = 'x';
-export const Y_FIELD = 'y';
-export const Z_FIELD = 'z';
-export const S_FIELD = 's';
+export const SERIES = ["type1", "type2"];
+export const X_FIELD = "x";
+export const Y_FIELD = "y";
+export const Z_FIELD = "z";
+export const S_FIELD = "s";
 
 // 容器宽高
 export const size = {
@@ -56,15 +56,21 @@ export const size = {
  * @param x
  * @param y
  */
-export const mock = _.memoize((length: number, x: string = X_FIELD, y: string = Y_FIELD, z: string = Z_FIELD) =>
-  M.arrayOf(
-    M.shape({
-      [x]: M.string(10),
-      [y]: M.number(10, 1000),
-      [z]: M.number(10, 1000),
-    }),
-    length
-  ).mock()
+export const mock = _.memoize(
+  (
+    length: number,
+    x: string = X_FIELD,
+    y: string = Y_FIELD,
+    z: string = Z_FIELD
+  ) =>
+    M.arrayOf(
+      M.shape({
+        [x]: M.string(10),
+        [y]: M.number(10, 1000),
+        [z]: M.number(10, 1000),
+      }),
+      length
+    ).mock()
 );
 
 // 延迟

@@ -1,13 +1,24 @@
-import _ from 'lodash';
-import * as echarts from 'echarts';
-import { Data } from '../../types';
-import { X_FIELD, Y_FIELD, size, sleep, block, SERIES, S_FIELD } from '../../helper';
+import _ from "lodash";
+import * as echarts from "echarts";
+import { Data } from "../../types";
+import {
+  X_FIELD,
+  Y_FIELD,
+  size,
+  sleep,
+  block,
+  SERIES,
+  S_FIELD,
+} from "../../helper";
 
 /**
  * @param container
  * @param data
  */
-export async function Area(container: HTMLElement, data: Data): Promise<number> {
+export async function Area(
+  container: HTMLElement,
+  data: Data
+): Promise<number> {
   const startTime = performance.now();
 
   const myChart = echarts.init(container, undefined, size);
@@ -22,15 +33,17 @@ export async function Area(container: HTMLElement, data: Data): Promise<number> 
       data: _.uniq(_.map(data, (item) => item[X_FIELD])),
     },
     yAxis: {},
-    series: SERIES.map(S => {
+    series: SERIES.map((S) => {
       return {
-        data: _.filter(data, (d: any) => d[S_FIELD] === S).map((item) => item[Y_FIELD]),
+        data: _.filter(data, (d: any) => d[S_FIELD] === S).map(
+          (item) => item[Y_FIELD]
+        ),
         areaStyle: {},
-        type: 'area',
+        type: "area",
       };
     }),
     tooltip: {
-      trigger: 'axis',
+      trigger: "axis",
     },
   };
 

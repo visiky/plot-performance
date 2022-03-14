@@ -7,11 +7,13 @@ import { ComparisonCase } from "../../components/Comparison";
 import "./index.less";
 
 export const Content = () => {
-
   return (
     <div className="content">
       <Tabs defaultActiveKey="1">
-        <Tabs.TabPane tab="Performance test and realtime data streaming" key="1">
+        <Tabs.TabPane
+          tab="Performance test and realtime data streaming"
+          key="1"
+        >
           <BasicCase />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Case of G2Plot" key="2">

@@ -1,8 +1,15 @@
-import _ from 'lodash';
-import { getPerfCase } from '../cases';
-import { CHART_TYPES } from '../constant';
-import { createDIV, getSeq, removeDIV, mock, SERIES, S_FIELD } from '../helper';
-import { ChartType, PerfData, PerfDatum, Data, ChangeOption, DataAttributeType } from '../types';
+import _ from "lodash";
+import { getPerfCase } from "../cases";
+import { CHART_TYPES } from "../constant";
+import { createDIV, getSeq, removeDIV, mock, SERIES, S_FIELD } from "../helper";
+import {
+  ChartType,
+  PerfData,
+  PerfDatum,
+  Data,
+  ChangeOption,
+  DataAttributeType,
+} from "../types";
 
 /**
  * 运行一个单测
@@ -10,13 +17,18 @@ import { ChartType, PerfData, PerfDatum, Data, ChangeOption, DataAttributeType }
  * @param type 性能测试 case
  * @param length 数据条数
  */
-async function runPerfCase(engine: string, type: ChartType, length: number, mockData: Data): Promise<PerfDatum | null> {
+async function runPerfCase(
+  engine: string,
+  type: ChartType,
+  length: number,
+  mockData: Data
+): Promise<PerfDatum | null> {
   const perfCase = getPerfCase(engine, type);
 
   if (!perfCase) return null;
 
   // 创建容器
-  const div = createDIV(document.getElementById('modalBody')!);
+  const div = createDIV(document.getElementById("modalBody")!);
 
   // 执行
   const time = await perfCase(div, mockData.slice(0, length)); // TODO 优化一下 slice，具备有一定的随机性
@@ -39,20 +51,37 @@ async function runPerfCase(engine: string, type: ChartType, length: number, mock
  * @param amount 总条数
  * @param count 数据条数
  */
-function changeBreadCrumb({ engine, type, length, amount, count, total }: ChangeOption) {
+function changeBreadCrumb({
+  engine,
+  type,
+  length,
+  amount,
+  count,
+  total,
+}: ChangeOption) {
   // 图表文本
-  const chartType = _.find(CHART_TYPES, ({ value }) => _.isEqual(value, type))?.label;
+  const chartType = _.find(CHART_TYPES, ({ value }) =>
+    _.isEqual(value, type)
+  )?.label;
   // 文本显示
   _.set(
-    document.getElementsByClassName('accounted'),
-    '[0].innerHTML',
+    document.getElementsByClassName("accounted"),
+    "[0].innerHTML",
     `render <b>${chartType}</b> on <b>${engine}</b>, ${length} / ${total} `
   );
   const percent = `${_.round((count / amount) * 100, 2)}%`;
   // 完成度显示
-  _.set(document.getElementsByClassName('progress'), '[0].innerHTML', `Finished: ${percent}`);
+  _.set(
+    document.getElementsByClassName("progress"),
+    "[0].innerHTML",
+    `Finished: ${percent}`
+  );
   // 进度条样式
-  _.set(document.getElementsByClassName('progressBackground'), '[0].style.width', percent);
+  _.set(
+    document.getElementsByClassName("progressBackground"),
+    "[0].style.width",
+    percent
+  );
 }
 
 /**
@@ -60,16 +89,22 @@ function changeBreadCrumb({ engine, type, length, amount, count, total }: Change
  * @param engines
  * @param types
  */
-export async function run(engines: string[], types: ChartType[], dataAttribute: DataAttributeType): Promise<PerfData> {
+export async function run(
+  engines: string[],
+  types: ChartType[],
+  dataAttribute: DataAttributeType
+): Promise<PerfData> {
   const r: PerfData = {};
   const seq = getSeq(..._.map(dataAttribute, (item) => item.num));
   // 最大的
   let mockData = mock(seq[seq.length - 1]).map((d: object) => ({ ...d }));
 
-  mockData = mockData.reduce((result: typeof mockData, d: typeof mockData[0]) => {
-    result.push(SERIES.map(s => ({ ...d, [S_FIELD]: s })));
-    return result;
-  }, []).flat(1);
+  mockData = mockData
+    .reduce((result: typeof mockData, d: typeof mockData[0]) => {
+      result.push(SERIES.map((s) => ({ ...d, [S_FIELD]: s })));
+      return result;
+    }, [])
+    .flat(1);
 
   const total = mockData.length;
 
@@ -79,7 +114,12 @@ export async function run(engines: string[], types: ChartType[], dataAttribute: 
   for (const engine of engines) {
     for (const type of types) {
       for (const length of seq) {
-        const perfDatum = await runPerfCase(engine, type, length, _.shuffle(mockData));
+        const perfDatum = await runPerfCase(
+          engine,
+          type,
+          length,
+          _.shuffle(mockData)
+        );
         if (perfDatum) {
           count++;
           changeBreadCrumb({ engine, type, length, amount, count, total });

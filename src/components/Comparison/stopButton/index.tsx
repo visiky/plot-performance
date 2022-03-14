@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
-import { Button } from 'antd';
-import { sleepThisObj } from '../helper';
-import { PauseOutlined, CaretRightOutlined } from '@ant-design/icons';
+import React, { useState } from "react";
+import _ from "lodash";
+import { Button } from "antd";
+import { sleepThisObj } from "../helper";
+import { PauseOutlined, CaretRightOutlined } from "@ant-design/icons";
 
 export const StopButton = () => {
   const [stopFlag, setStopFlag] = useState(false);
@@ -20,7 +20,7 @@ export const StopButton = () => {
       icon={stopFlag ? <CaretRightOutlined /> : <PauseOutlined />}
       size="small"
     >
-      {stopFlag ? 'Start' : 'Pause'}
+      {stopFlag ? "Start" : "Pause"}
     </Button>
   );
 };
