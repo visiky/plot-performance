@@ -1,4 +1,5 @@
 import * as echarts from "echarts";
+import "echarts-wordcloud";
 import _ from "lodash";
 import { SERIES_FIELD, X_FIELD, Y_FIELD } from "../constant";
 import { MEASURES } from "../data";
@@ -32,7 +33,7 @@ export const createECharts = (container: HTMLElement | HTMLDivElement) => {
 
     const startTime = performance.now();
 
-    plot = echarts.init(container, undefined);
+    plot = echarts.init(container);
     const option = {
       grid: {
         top: 10,

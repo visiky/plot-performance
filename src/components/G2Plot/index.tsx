@@ -41,10 +41,10 @@ export const G2PlotCase = () => {
   }, [DataPoints]);
 
   async function render() {
-    const testcases = [testcase1, testcase2, testcase3];
+    const testCases = [testcase1, testcase2, testcase3];
 
     Promise.all(
-      testcases.map(async (testcase) => {
+      testCases.map(async (testcase) => {
         const p = testcase.current;
 
         const time = await p.render(data, chartType, {
@@ -70,7 +70,7 @@ export const G2PlotCase = () => {
     bindEvents(testcase3.current!, [testcase1.current!, testcase2.current!]);
   }
 
-  function bindEvents(t: any, testcases: any[]) {
+  function bindEvents(t: any, testCases: any[]) {
     const p = t.getPlot();
     if (!p) return;
 
@@ -78,7 +78,7 @@ export const G2PlotCase = () => {
       const {
         event: { value },
       } = evt;
-      testcases.forEach((__) => {
+      testCases.forEach((__) => {
         const plot = __ && __.getPlot();
         if (!plot) return;
         plot.update({ slider: { start: value[0], end: value[1] } });

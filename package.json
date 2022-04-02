@@ -41,6 +41,7 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
     "babel-plugin-styled-components": "^2.0.6",
+    "echarts-wordcloud": "^2.0.0",
     "gatsby": "^4.9.2",
     "gatsby-plugin-antd": "^2.2.0",
     "gatsby-plugin-google-analytics": "^4.9.0",

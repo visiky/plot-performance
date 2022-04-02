@@ -2,6 +2,7 @@ import {
   Line as LineG2plot,
   Column as ColumnG2plot,
   Scatter as ScatterG2plot,
+  WordCloud,
   Area,
   Bar,
   Plot,
@@ -17,6 +18,7 @@ const Ctor: Record<string, any> = {
   scatter: ScatterG2plot,
   area: Area,
   bar: Bar,
+  wordCloud: WordCloud,
 };
 
 export const createG2Plot = (container: HTMLElement | HTMLDivElement) => {

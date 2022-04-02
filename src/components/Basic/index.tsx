@@ -15,7 +15,7 @@ export const BasicCase = () => {
   const ref1 = React.useRef<HTMLDivElement | null>(null);
   const ref2 = React.useRef<HTMLDivElement | null>(null);
   const ref3 = React.useRef<HTMLDivElement | null>(null);
-  const testcases = React.useRef<any>([]);
+  const testCases = React.useRef<any>([]);
   const interval = React.useRef<any>();
   const date = React.useRef<Date>(new Date(0));
 
@@ -37,7 +37,7 @@ export const BasicCase = () => {
     const cases = ENGINES.map((E, idx) => {
       return CASES.get(E)(containers[idx]);
     });
-    testcases.current = cases;
+    testCases.current = cases;
 
     // 销毁
     return () => cases.forEach((c) => c.destroy());
@@ -45,7 +45,7 @@ export const BasicCase = () => {
 
   const render = async () => {
     Promise.all(
-      testcases.current.map(async (p: any, idx: number) => {
+      testCases.current.map(async (p: any, idx: number) => {
         const time = await p.render(
           data,
           chartType,
@@ -70,7 +70,7 @@ export const BasicCase = () => {
     let start = DataPoints;
     interval.current = setInterval(async () => {
       Promise.all(
-        testcases.current.map((p: any) => {
+        testCases.current.map((p: any) => {
           const newData = p
             .getData()
             .slice(streamingPoints)

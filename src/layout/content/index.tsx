@@ -4,6 +4,7 @@ import { Tabs } from "antd";
 import { BasicCase } from "../../components/Basic";
 import { G2PlotCase } from "../../components/G2Plot";
 import { ComparisonCase } from "../../components/Comparison";
+import { WordCloudCase } from "../../components/WordCloud";
 import "./index.less";
 
 export const Content = () => {
@@ -21,6 +22,9 @@ export const Content = () => {
         </Tabs.TabPane>
         <Tabs.TabPane tab="Comparison" key="3">
           <ComparisonCase />
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="WordCloud" key="4">
+          <WordCloudCase />
         </Tabs.TabPane>
       </Tabs>
     </div>
