@@ -1,9 +1,13 @@
 import * as echarts from "echarts";
-import "echarts-wordcloud";
 import _ from "lodash";
 import { SERIES_FIELD, X_FIELD, Y_FIELD } from "../constant";
 import { MEASURES } from "../data";
 import { sleep } from "../utils";
+
+// Wrap the require in check for window
+if (typeof window !== `undefined`) {
+  require("echarts-wordcloud");
+}
 
 const CHART_MAP: Record<string, string> = {
   line: "line",
